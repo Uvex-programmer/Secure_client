@@ -73,7 +73,7 @@ const Navbar = () => {
   const classes = useStyles({ open })
 
   return (
-    <AppBar position='fixed'>
+    <AppBar position='relative'>
       <Toolbar className={classes.toolbar}>
         <Typography variant='h6' className={classes.logoLg}>
           PlaceAwesome

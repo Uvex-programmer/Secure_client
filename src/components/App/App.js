@@ -1,22 +1,20 @@
-import { useQuery } from '@apollo/client'
-import { GET_ALL_USERS } from '../../api/queries/getAllUsers'
 import AllRoutes from './AllRoutes/AllRoutes'
-import { Grid } from '@mui/material'
+import GroupBar from './GroupBar/GroupBar'
+import { Grid, Typography } from '@mui/material'
 import Navbar from '../Navbar/Navbar'
 
 function App() {
-  const { data, loading } = useQuery(GET_ALL_USERS)
-
   return (
-    <div>
-      {loading ? '' : console.log(data)}
-      <Navbar />
-      <Grid container>
-        <Grid item>hej</Grid>
-        <Grid item>hej</Grid>
-        <Grid item>hej</Grid>
+    <Grid container height='100%'>
+      <Grid item minWidth={'100%'} maxHeight={'62px'}>
+        <Navbar />
       </Grid>
-    </div>
+      <Grid item md={2} minWidth={300} bgcolor='gray' minHeight='100%'>
+        <GroupBar />
+      </Grid>
+      <Grid item>hej</Grid>
+      <Grid item>hej</Grid>
+    </Grid>
   )
 }
 

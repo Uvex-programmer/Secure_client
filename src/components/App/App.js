@@ -2,6 +2,7 @@ import AllRoutes from './AllRoutes/AllRoutes'
 import GroupBar from './GroupBar/GroupBar'
 import { Grid, Typography } from '@mui/material'
 import Navbar from '../Navbar/Navbar'
+import MemberBar from '../GroupPages/MemberBar'
 
 function App() {
   return (
@@ -13,7 +14,9 @@ function App() {
         <GroupBar />
       </Grid>
       <Grid item>hej</Grid>
-      <Grid item>hej</Grid>
+      <Grid item>
+        <MemberBar />
+      </Grid>
     </Grid>
   )
 }

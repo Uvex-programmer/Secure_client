@@ -1,15 +1,14 @@
 import {
   alpha,
   AppBar,
-  Avatar,
-  Badge,
   InputBase,
   makeStyles,
   Toolbar,
   Typography,
+  Link,
+  Button,
 } from '@material-ui/core'
-import { Cancel, Mail, Notifications, Search } from '@material-ui/icons'
-import { useState } from 'react'
+import { useAuth } from '../../store/AuthContext'
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -17,91 +16,45 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
     backgroundColor: '#2f4f4f',
   },
-  logoLg: {
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
-      display: 'block',
-    },
-  },
-  logoSm: {
-    display: 'block',
-    [theme.breakpoints.up('sm')]: {
-      display: 'none',
-    },
-  },
-  search: {
-    display: 'flex',
-    alignItems: 'center',
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-    '&:hover': {
-      backgroundColor: alpha(theme.palette.common.white, 0.25),
-    },
-    borderRadius: theme.shape.borderRadius,
-    width: '30%',
-    [theme.breakpoints.down('sm')]: {
-      display: (props) => (props.open ? 'flex' : 'none'),
-      width: '40%',
-    },
-  },
-  input: {
-    color: 'white',
-    marginLeft: theme.spacing(2),
-    width: '100%',
-  },
-  cancel: {
-    [theme.breakpoints.up('sm')]: {
-      display: 'none',
-    },
-  },
-  searchButton: {
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
-      display: 'none',
-    },
-  },
-  icons: {
-    alignItems: 'center',
-    display: (props) => (props.open ? 'none' : 'flex'),
-  },
-  badge: {
-    marginRight: theme.spacing(2),
-  },
 }))
 
 const Navbar = () => {
-  const [open, setOpen] = useState(false)
-  const classes = useStyles({ open })
+  const classes = useStyles()
+  const auth = useAuth()
 
   return (
     <AppBar position='relative'>
       <Toolbar className={classes.toolbar}>
         <Typography variant='h6' className={classes.logoLg}>
-          PlaceAwesome
+          <Link href='/' variant='inherit' underline='none'>
+            PlaceAwesome
+          </Link>
         </Typography>
-        <Typography variant='h6' className={classes.logoSm}>
-          PA
-        </Typography>
-        <div className={classes.search}>
-          <Search />
-          <InputBase placeholder='Search...' className={classes.input} />
-          <Cancel className={classes.cancel} onClick={() => setOpen(false)} />
-        </div>
-        <div className={classes.icons}>
-          <Search
-            className={classes.searchButton}
-            onClick={() => setOpen(true)}
-          />
-          <Badge badgeContent={4} color='secondary' className={classes.badge}>
-            <Mail />
-          </Badge>
-          <Badge badgeContent={2} color='secondary' className={classes.badge}>
-            <Notifications />
-          </Badge>
-          <Avatar
-            alt='Remy Sharp'
-            src='https://images.pexels.com/photos/8647814/pexels-photo-8647814.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500'
-          />
-        </div>
+        {!auth.user && (
+          <>
+            <Typography variant='body2'>
+              <Link href='/login' variant='inherit' underline='none'>
+                Login
+              </Link>
+            </Typography>
+            <Typography variant='body2'>
+              <Link href='/signup' variant='inherit' underline='none'>
+                Sign up
+              </Link>
+            </Typography>
+          </>
+        )}
+
+        {auth.user && (
+          <Button
+            variant='text'
+            onClick={() => {
+              auth.logoutUser()
+            }}
+          >
+            Logout
+          </Button>
+        )}
       </Toolbar>
     </AppBar>
   )

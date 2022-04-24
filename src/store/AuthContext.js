@@ -63,7 +63,6 @@ export const AuthContextProvider = (props) => {
   const authenticate = async () => {
     let res = await fetch('/api/auth/authenticate')
     res = await res.json()
-    console.log(res.message)
 
     return res.message ? false : true
   }

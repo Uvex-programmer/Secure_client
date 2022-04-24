@@ -1,7 +1,9 @@
 import React from 'react'
 
-const GroupPage = () => {
-  return <div>GroupPage</div>
+function groupPage() {
+  return (
+    <div>groupPage</div>
+  )
 }
 
-export default GroupPage
+export default groupPage

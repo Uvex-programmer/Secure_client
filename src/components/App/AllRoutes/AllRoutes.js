@@ -3,8 +3,10 @@ import Login from '../../../pages/LoginPage/login'
 import Signup from '../../../pages/SignupPage/Signup'
 import HomePage from '../../../pages/HomePage/HomePage'
 import NoMatchRoute from '../../../pages/noMatchRoute'
-import GroupPage from '../../../pages/GroupPage/GroupPage'
 import ProtectedRoute from './ProtectedRoute'
+import GroupPage from '../../../pages/GroupPage/GroupPage'
+import MemberBar from '../../GroupPages/MemberBar'
+
 
 const AllRoutes = () => {
   return (

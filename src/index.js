@@ -10,6 +10,7 @@ import {
 } from '@apollo/client'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { AuthContextProvider } from './store/AuthContext'
+import { UrlContextProvider } from './store/UrlContext'
 
 const link = createHttpLink({
   uri: process.env.REACT_APP_GRAPHQL_URL,
@@ -25,9 +26,11 @@ ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
       <AuthContextProvider>
-        <Router>
-          <App />
-        </Router>
+        <UrlContextProvider>
+          <Router>
+            <App />
+          </Router>
+        </UrlContextProvider>
       </AuthContextProvider>
     </ApolloProvider>
   </React.StrictMode>,

@@ -1,7 +1,5 @@
 import {
-  alpha,
   AppBar,
-  InputBase,
   makeStyles,
   Toolbar,
   Typography,
@@ -10,7 +8,7 @@ import {
 } from '@material-ui/core'
 import { useAuth } from '../../store/AuthContext'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   toolbar: {
     display: 'flex',
     justifyContent: 'space-between',

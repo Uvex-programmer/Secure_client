@@ -8,8 +8,8 @@ const ProtectedRoute = ({ children }) => {
   const [authenticated, setAuthenticated] = useState(false)
 
   useEffect(() => {
-    const authenticate = () => {
-      const authenticated = auth.authenticate()
+    const authenticate = async () => {
+      const authenticated = await auth.authenticate()
       setAuthenticated(authenticated)
       setLoading(false)
     }

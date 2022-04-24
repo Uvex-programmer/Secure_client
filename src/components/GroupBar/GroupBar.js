@@ -1,8 +1,8 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
 import { Grid, Typography, Container } from '@mui/material'
-import { GET_ALL_GROUPS } from '../../../api/queries/getAllGroups'
-import GroupBox from './GroupBox'
+import { GET_ALL_GROUPS } from '../../api/queries/getAllGroups'
+import GroupBox from '../GroupBar/GroupBox'
 
 const GroupBar = () => {
   const { data, loading } = useQuery(GET_ALL_GROUPS, { variables: {} })

@@ -10,7 +10,6 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
-import { useAuth } from '../../store/AuthContext'
 
 function Copyright(props) {
   return (
@@ -32,14 +31,29 @@ function Copyright(props) {
 
 const theme = createTheme()
 
-export default function SignIn() {
-  const auth = useAuth()
-
+export default function SignUp() {
   const handleSubmit = async (event) => {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
+    console.log({
+      email: data.get('email'),
+      password: data.get('password'),
+      username: data.get('username'),
+    })
 
-    auth.loginUser(data.get('username'), data.get('password'))
+    const response = await fetch('/api/auth/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: data.get('email'),
+        username: data.get('username'),
+        password: data.get('password'),
+      }),
+    })
+    const res = await response.json()
+    console.log(res)
   }
 
   return (
@@ -58,7 +72,7 @@ export default function SignIn() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component='h1' variant='h5'>
-            Sign in
+            Sign up
           </Typography>
           <Box
             component='form'
@@ -70,11 +84,21 @@ export default function SignIn() {
               margin='normal'
               required
               fullWidth
-              id='username'
-              label='username'
-              name='username'
-              autoComplete='username'
+              id='email'
+              label='Email Address'
+              name='email'
+              autoComplete='email'
               autoFocus
+            />
+            <TextField
+              margin='normal'
+              required
+              fullWidth
+              name='username'
+              label='username'
+              type='text'
+              id='username'
+              autoComplete='username'
             />
             <TextField
               margin='normal'
@@ -92,12 +116,12 @@ export default function SignIn() {
               variant='contained'
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              Sign up
             </Button>
             <Grid container>
               <Grid item>
-                <Link href='/signup' variant='body2'>
-                  {"Don't have an account? Sign Up"}
+                <Link href='/login' variant='body2'>
+                  {'Allready have an account? Sign In'}
                 </Link>
               </Grid>
             </Grid>

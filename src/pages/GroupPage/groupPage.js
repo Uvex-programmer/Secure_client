@@ -1,9 +1,9 @@
 import React from 'react'
 
-function group() {
+function groupPage() {
   return (
-    <div>group</div>
+    <div>groupPage</div>
   )
 }
 
-export default group
+export default groupPage

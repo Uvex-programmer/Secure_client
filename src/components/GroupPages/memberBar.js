@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
+import { useParams } from "react-router-dom";
 import { Grid, Typography, Container } from '@mui/material'
 import { GET_SINGLE_GROUP_BY_ID } from '../../api/queries/getSingleGroupById';
 import { useQuery } from '@apollo/client'
 import MemberBox from './MemberBox';
   
 const MemberBar = () => {
+  console.log('useparams', useParams());
   const { data, loading } = useQuery(GET_SINGLE_GROUP_BY_ID, { variables: { "groupId":"625d2a60785998749bb8cced"
   }
   });

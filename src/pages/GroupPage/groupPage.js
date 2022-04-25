@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Grid, Typography, Container } from '@mui/material'
 import { GET_SINGLE_GROUP_BY_ID } from '../../api/queries/getSingleGroupById';
 import { useQuery } from '@apollo/client'

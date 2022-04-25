@@ -8,11 +8,13 @@ import { useUrlId } from '../../store/UrlContext';
 
 const MemberBar = () => {
   const urlCtx = useUrlId();
+  
     const { data, loading } = useQuery(GET_SINGLE_GROUP_BY_ID, {
-    variables: {
-      "groupId": urlCtx.groupId
-    }
-  });
+      variables: {
+        "groupId": urlCtx.groupId
+      }
+    });
+  
 
   return (
     <Container>

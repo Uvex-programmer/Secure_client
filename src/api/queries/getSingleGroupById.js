@@ -7,9 +7,10 @@ query findSingleGroupById($groupId:String){
       name
       isPrivate
       groupPosts{
-        posts{
+          username
           text
-        }
+          id
+          
       }
       admins {
         username

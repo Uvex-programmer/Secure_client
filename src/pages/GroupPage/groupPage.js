@@ -21,13 +21,15 @@ const GroupPage = () => {
         padding={2}
         borderBottom='2px solid black'
       >
-        Admins
+        {!loading &&
+          data?.findSingleGroupById.name}
       </Typography>
       <Grid container>
         {loading && <h1>loading</h1>}
         {!loading &&
           data?.findSingleGroupById.name &&
-          data.findSingleGroupById.groupPosts.posts.map((pst, idx) => {
+          data.findSingleGroupById.groupPosts.map((pst, idx) => {
+          
             return <GroupPostCard key={idx} post={pst} />
           })}
       </Grid>

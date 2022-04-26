@@ -3,9 +3,8 @@ import { Grid, Typography, Container } from '@mui/material'
 import { GET_SINGLE_GROUP_BY_ID } from '../../api/queries/getSingleGroupById'
 import { useQuery } from '@apollo/client'
 import { useParams } from 'react-router';
-import { useUrlId } from '../../store/UrlContext'
 import GroupPostCard from '../../components/GroupPages/GroupPostCard'
-import MemberBar from '../../components/GroupPages/MemberBar'
+import MemberBar from '../../components/GroupPages/memberBar1'
 
 const GroupPage = () => {
   const { id } = useParams();
@@ -14,15 +13,6 @@ const GroupPage = () => {
       "groupId": id
     }
   });
-
-
-const GroupPage = () => {
-  const urlCtx = useUrlId()
-  const { data, loading } = useQuery(GET_SINGLE_GROUP_BY_ID, {
-    variables: {
-      groupId: urlCtx.groupId,
-    },
-  })
 
   return (
     <Container>
@@ -41,7 +31,7 @@ const GroupPage = () => {
             data?.findSingleGroupById.name &&
             data.findSingleGroupById.groupPosts.map((pst, idx) => {
               return (
-                <GroupPostCard key={idx} post={pst} groupId={urlCtx.groupId} />
+                <GroupPostCard key={idx} post={pst} groupId={id} />
               )
             })}
         </Grid>

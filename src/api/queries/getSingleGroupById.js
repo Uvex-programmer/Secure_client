@@ -10,7 +10,7 @@ query findSingleGroupById($groupId:String){
           username
           text
           id
-          
+          updatedAt
       }
       admins {
         username

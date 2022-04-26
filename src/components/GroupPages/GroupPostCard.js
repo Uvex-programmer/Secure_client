@@ -6,16 +6,20 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-const GroupPostCard = ({ post }) => {
+const GroupPostCard = ({ post, groupId }) => {
+  const deletePost = () => {
+    console.log("delet");
+    
+  }
 
   const card = (
     <React.Fragment>
       <CardContent>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          Updated: {post.updatedAt}
+        <Typography sx={{ fontSize: 10 }} color="text.secondary" gutterBottom variant="body2">
+          Posted: {post.updatedAt}
         </Typography>
 
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
+        <Typography sx={{ mb: 1.5 }} color="text.secondary" variant="body2">
           Author: {post.username}
         </Typography>
         <Typography variant="body2">
@@ -23,10 +27,14 @@ const GroupPostCard = ({ post }) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">edit post</Button>
+        <Button size="small" onClick={() => {
+          console.log(post.id,groupId);
+        }}>edit post</Button>
       </CardActions>
       <CardActions>
-        <Button size="small">delete post</Button>
+        <Button size="small" onClick={() => {
+          deletePost()
+        }}>delete post</Button>
       </CardActions>
     </React.Fragment>
   );

@@ -30,7 +30,7 @@ const GroupPage = () => {
           data?.findSingleGroupById.name &&
           data.findSingleGroupById.groupPosts.map((pst, idx) => {
           
-            return <GroupPostCard key={idx} post={pst} />
+            return <GroupPostCard key={idx} post={pst} groupId={urlCtx.groupId }/>
           })}
       </Grid>
     </Container>

@@ -3,15 +3,12 @@ import { Grid, Typography, Container } from '@mui/material'
 import { GET_SINGLE_GROUP_BY_ID } from '../../api/queries/getSingleGroupById'
 import { useQuery } from '@apollo/client'
 import MemberBox from './MemberBox'
-import { useUrlId } from '../../store/UrlContext'
 
-const MemberBar = () => {
-  const urlCtx = useUrlId()
+const MemberBar = ({ groupId }) => {
 
-  console.log(urlCtx.groupId)
   const { data, loading } = useQuery(GET_SINGLE_GROUP_BY_ID, {
     variables: {
-      groupId: urlCtx.groupId,
+      groupId: groupId,
     },
   })
 
@@ -66,7 +63,7 @@ const MemberBar = () => {
           })}
       </Grid>
     </Container>
-  )
-}
-
-export default MemberBar
+  );
+  } 
+  
+export default MemberBar;

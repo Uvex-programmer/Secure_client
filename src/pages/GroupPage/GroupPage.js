@@ -36,7 +36,7 @@ const GroupPage = () => {
             })}
         </Grid>
         <Grid item md={4} sx={{ backgroundColor: 'gray' }}>
-          <MemberBar />
+          <MemberBar groupId={id}/>
         </Grid>
       </Grid>
     </Container>

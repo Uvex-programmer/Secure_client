@@ -6,7 +6,6 @@ import NoMatchRoute from '../../../pages/noMatchRoute'
 import ProtectedRoute from './ProtectedRoute'
 import GroupPage from '../../../pages/GroupPage/GroupPage'
 
-
 const AllRoutes = () => {
   return (
     <Routes>

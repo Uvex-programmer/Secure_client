@@ -5,10 +5,19 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { useMutation } from '@apollo/client'
+import { REMOVE_POST_FROM_GROUP } from '../../api/mutation/removePostFromGroup'
 
 const GroupPostCard = ({ post, groupId }) => {
+  const [ removePost, {error}] = useMutation(REMOVE_POST_FROM_GROUP);
+
   const deletePost = () => {
-    console.log("delet");
+    removePost({
+      variables: {
+        groupId: groupId,
+        postId: post.id
+      }
+    });
     
   }
 

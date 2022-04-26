@@ -64,6 +64,5 @@ const MemberBar = ({ groupId }) => {
       </Grid>
     </Container>
   );
-  } 
-  
-export default MemberBar;
+} 
+  export default MemberBar;

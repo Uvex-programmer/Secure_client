@@ -4,7 +4,7 @@ import { GET_SINGLE_GROUP_BY_ID } from '../../api/queries/getSingleGroupById'
 import { useQuery } from '@apollo/client'
 import { useParams } from 'react-router';
 import GroupPostCard from '../../components/GroupPages/GroupPostCard'
-import MemberBar from '../../components/GroupPages/memberBar1'
+import MemberBar from '../../components/GroupPages/Memberbar'
 
 const GroupPage = () => {
   const { id } = useParams();

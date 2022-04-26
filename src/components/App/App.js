@@ -4,7 +4,6 @@ import { Grid } from '@mui/material'
 import Navbar from '../Navbar/Navbar'
 import { useEffect } from 'react'
 import { useAuth } from '../../store/AuthContext'
-import MemberBar from '../GroupPages/MemberBar'
 
 function App() {
   const auth = useAuth()
@@ -21,11 +20,8 @@ function App() {
       <Grid item md={2} bgcolor='gray' minHeight='100%'>
         <GroupBar />
       </Grid>
-      <Grid item md={8}>
+      <Grid item md={10}>
         <AllRoutes />
-      </Grid>
-      <Grid item md={2} bgcolor='gray' minHeight='100%'>
-        <MemberBar />
       </Grid>
     </Grid>
   )

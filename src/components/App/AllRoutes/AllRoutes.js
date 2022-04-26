@@ -5,8 +5,6 @@ import HomePage from '../../../pages/HomePage/HomePage'
 import NoMatchRoute from '../../../pages/noMatchRoute'
 import ProtectedRoute from './ProtectedRoute'
 import GroupPage from '../../../pages/GroupPage/GroupPage'
-import MemberBar from '../../GroupPages/MemberBar'
-
 
 const AllRoutes = () => {
   return (

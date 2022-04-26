@@ -1,20 +1,19 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from "react-router-dom";
+import React from 'react'
 import { Grid, Typography, Container } from '@mui/material'
-import { GET_SINGLE_GROUP_BY_ID } from '../../api/queries/getSingleGroupById';
+import { GET_SINGLE_GROUP_BY_ID } from '../../api/queries/getSingleGroupById'
 import { useQuery } from '@apollo/client'
-import MemberBox from './MemberBox';
-import { useUrlId } from '../../store/UrlContext';
+import MemberBox from './MemberBox'
+import { useUrlId } from '../../store/UrlContext'
 
 const MemberBar = () => {
-  const urlCtx = useUrlId();
-  
-    const { data, loading } = useQuery(GET_SINGLE_GROUP_BY_ID, {
-      variables: {
-        "groupId": urlCtx.groupId
-      }
-    });
-  
+  const urlCtx = useUrlId()
+
+  console.log(urlCtx.groupId)
+  const { data, loading } = useQuery(GET_SINGLE_GROUP_BY_ID, {
+    variables: {
+      groupId: urlCtx.groupId,
+    },
+  })
 
   return (
     <Container>

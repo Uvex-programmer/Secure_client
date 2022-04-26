@@ -2,14 +2,14 @@ import React from 'react'
 import { Grid, Typography, Container } from '@mui/material'
 import { GET_SINGLE_GROUP_BY_ID } from '../../api/queries/getSingleGroupById';
 import { useQuery } from '@apollo/client'
-import { useUrlId } from '../../store/UrlContext';
 import GroupPostCard from '../../components/GroupPages/GroupPostCard';
+import { useParams } from 'react-router';
 
 const GroupPage = () => {
-  const urlCtx = useUrlId();
+  const { id } = useParams();
   const { data, loading } = useQuery(GET_SINGLE_GROUP_BY_ID, {
     variables: {
-      "groupId": urlCtx.groupId
+      "groupId": id
     }
   });
 
@@ -29,8 +29,8 @@ const GroupPage = () => {
         {!loading &&
           data?.findSingleGroupById.name &&
           data.findSingleGroupById.groupPosts.map((pst, idx) => {
-          
-            return <GroupPostCard key={idx} post={pst} groupId={urlCtx.groupId }/>
+
+            return <GroupPostCard key={idx} post={pst} groupId={id} />
           })}
       </Grid>
     </Container>

@@ -14,7 +14,7 @@ import { UrlContextProvider } from './store/UrlContext'
 
 const link = createHttpLink({
   uri: process.env.REACT_APP_GRAPHQL_URL,
-  //credentials: 'include',
+  credentials: 'include',
 })
 
 const client = new ApolloClient({

@@ -10,6 +10,7 @@ import { REMOVE_POST_FROM_GROUP } from '../../api/mutation/removePostFromGroup'
 
 const GroupPostCard = ({ post, groupId }) => {
   const [ removePost, {error}] = useMutation(REMOVE_POST_FROM_GROUP);
+  const correctUser = () => { return true; }
 
   const deletePost = () => {
     removePost({
@@ -35,6 +36,8 @@ const GroupPostCard = ({ post, groupId }) => {
           {post.text}
         </Typography>
       </CardContent>
+
+      { correctUser() &&<>
       <CardActions>
         <Button size="small" onClick={() => {
           console.log(post.id,groupId);
@@ -44,7 +47,8 @@ const GroupPostCard = ({ post, groupId }) => {
         <Button size="small" onClick={() => {
           deletePost()
         }}>delete post</Button>
-      </CardActions>
+        </CardActions></>
+      }
     </React.Fragment>
   );
   

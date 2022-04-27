@@ -4,13 +4,8 @@ import { GET_SINGLE_GROUP_BY_ID } from '../../api/queries/getSingleGroupById'
 import { useQuery } from '@apollo/client'
 import MemberBox from './MemberBox'
 
-const MemberBar = ({ groupId }) => {
+const MemberBar = ({ group }) => {
 
-  const { data, loading } = useQuery(GET_SINGLE_GROUP_BY_ID, {
-    variables: {
-      groupId: groupId,
-    },
-  })
 
   return (
     <Container>
@@ -23,10 +18,8 @@ const MemberBar = ({ groupId }) => {
         Admins
       </Typography>
       <Grid container>
-        {loading && <h1>loading</h1>}
-        {!loading &&
-          data?.findSingleGroupById.name &&
-          data.findSingleGroupById.admins.map((mem, idx) => {
+        {group?.name &&
+          group.admins.map((mem, idx) => {
             return <MemberBox key={idx} member={mem} />
           })}
       </Grid>
@@ -39,10 +32,9 @@ const MemberBar = ({ groupId }) => {
         Moderators
       </Typography>
       <Grid container>
-        {loading && <h1>loading</h1>}
-        {!loading &&
-          data?.findSingleGroupById.name &&
-          data.findSingleGroupById.moderators.map((mem, idx) => {
+
+        {group?.name &&
+          group.moderators.map((mem, idx) => {
             return <MemberBox key={idx} member={mem} />
           })}
       </Grid>
@@ -55,14 +47,12 @@ const MemberBar = ({ groupId }) => {
         Members
       </Typography>
       <Grid container>
-        {loading && <h1>loading</h1>}
-        {!loading &&
-          data?.findSingleGroupById.name &&
-          data.findSingleGroupById.members.map((mem, idx) => {
+        {group?.name &&
+          group.members.map((mem, idx) => {
             return <MemberBox key={idx} member={mem} />
           })}
       </Grid>
     </Container>
   );
-} 
-  export default MemberBar;
+}
+export default MemberBar;

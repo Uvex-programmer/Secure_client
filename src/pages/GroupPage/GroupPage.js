@@ -36,7 +36,9 @@ const GroupPage = () => {
             })}
         </Grid>
         <Grid item md={4} sx={{ backgroundColor: 'gray' }}>
-          <MemberBar groupId={id}/>
+            {!loading &&
+          <MemberBar group={data.findSingleGroupById}/>
+            }
         </Grid>
       </Grid>
     </Container>

@@ -6,6 +6,7 @@ import {
   TextField,
   Box,
   Button,
+  CardContent,
 } from '@mui/material'
 import { GET_SINGLE_GROUP_BY_ID } from '../../api/queries/getSingleGroupById'
 import { useQuery, useMutation } from '@apollo/client'
@@ -55,6 +56,8 @@ const GroupPage = () => {
             data.findSingleGroupById.groupPosts.map((pst, idx) => {
               return <GroupPostCard key={idx} post={pst} groupId={id} />
             })}
+          <CardContent>
+          <h4>Create a new post</h4>
           <Box sx={{ marginTop: '1rem' }}>
             <TextField
               id='outlined-multiline-static'
@@ -68,7 +71,8 @@ const GroupPage = () => {
             <Button onClick={handleMessage} sx={{ top: 90, left: 10 }}>
               Submit
             </Button>
-          </Box>
+            </Box>
+          </CardContent>
         </Grid>
         <Grid item md={4} sx={{ backgroundColor: 'gray' }}>
             {!loading &&

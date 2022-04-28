@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import {
   Box,
   Card,
@@ -6,26 +6,26 @@ import {
   CardContent,
   Button,
   Typography,
-  TextField
-} from '@mui/material/';
+  TextField,
+} from '@mui/material/'
 import { useMutation } from '@apollo/client'
 import { REMOVE_POST_FROM_GROUP } from '../../api/mutation/removePostFromGroup'
 import { useAuth } from '../../store/AuthContext'
 import { ADD_POST } from '../../api/mutation/addPost'
 
 const GroupPostCard = ({ post, groupId, admins, mods }) => {
-  const [removePost] = useMutation(REMOVE_POST_FROM_GROUP);
-  const [addPost] = useMutation(ADD_POST);
-  const auth = useAuth();
-  const username = auth.user.username;
+  const [removePost] = useMutation(REMOVE_POST_FROM_GROUP)
+  const [addPost] = useMutation(ADD_POST)
+  const auth = useAuth()
+  const username = auth.user?.username
   const [message, setmessage] = useState(post.text)
   const [editPost, setEditPost] = useState('')
 
   const correctUser = () => {
-    if (post.username === username) return true;
+    if (post.username === username) return true
     const admin = admins.filter((user) => user.username === username)
     const moderators = mods.filter((user) => user.username === username)
-    return (moderators.length > 0 || admin.length > 0) ? true : false;
+    return moderators.length > 0 || admin.length > 0 ? true : false
   }
 
   const handleMessage = () => {
@@ -37,34 +37,35 @@ const GroupPostCard = ({ post, groupId, admins, mods }) => {
         groupId: groupId,
       },
     })*/
-    setEditPost(false);
+    setEditPost(false)
   }
 
   const deletePost = () => {
     removePost({
       variables: {
         groupId: groupId,
-        postId: post.id
-      }
-    });
-
+        postId: post.id,
+      },
+    })
   }
 
   const card = (
     <React.Fragment>
       <CardContent>
-        <Typography sx={{ fontSize: 10 }} color="text.secondary" gutterBottom variant="body2">
+        <Typography
+          sx={{ fontSize: 10 }}
+          color='text.secondary'
+          gutterBottom
+          variant='body2'
+        >
           Posted: {post.updatedAt}
         </Typography>
 
-        <Typography sx={{ mb: 1.5 }} color="text.secondary" variant="body2">
+        <Typography sx={{ mb: 1.5 }} color='text.secondary' variant='body2'>
           Author: {post.username}
         </Typography>
-        {!editPost &&
-          <Typography variant="body2">
-            {post.text}
-          </Typography>}
-        {editPost &&
+        {!editPost && <Typography variant='body2'>{post.text}</Typography>}
+        {editPost && (
           <Box sx={{ marginTop: '1rem' }}>
             <TextField
               id='outlined-multiline-static'
@@ -78,29 +79,42 @@ const GroupPostCard = ({ post, groupId, admins, mods }) => {
             <Button onClick={handleMessage} sx={{ top: 90, left: 10 }}>
               Submit
             </Button>
-          </Box>}
+          </Box>
+        )}
       </CardContent>
 
-      {correctUser() && <>
-        <CardActions>
-          <Button size="small" onClick={() => {
-            setEditPost(true);
-          }}>edit post</Button>
-        </CardActions>
-        <CardActions>
-          <Button size="small" onClick={() => {
-            deletePost()
-          }}>delete post</Button>
-        </CardActions></>
-      }
+      {correctUser() && (
+        <>
+          <CardActions>
+            <Button
+              size='small'
+              onClick={() => {
+                setEditPost(true)
+              }}
+            >
+              edit post
+            </Button>
+          </CardActions>
+          <CardActions>
+            <Button
+              size='small'
+              onClick={() => {
+                deletePost()
+              }}
+            >
+              delete post
+            </Button>
+          </CardActions>
+        </>
+      )}
     </React.Fragment>
-  );
+  )
 
   return (
     <Box sx={{ minWidth: 275 }}>
-      <Card variant="outlined">{card}</Card>
+      <Card variant='outlined'>{card}</Card>
     </Box>
-  );
+  )
 }
 
 export default GroupPostCard

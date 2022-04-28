@@ -60,8 +60,13 @@ export const AuthContextProvider = (props) => {
     setUser(data)
   }
 
-  const authenticate = async () => {
-    let res = await fetch('/api/auth/authenticate')
+  const authenticate = async (groupId) => {
+    console.log(groupId)
+    let res = await fetch('/api/auth/authenticate', {
+      method: 'POST',
+      headers: { 'Content-type': 'application/json' },
+      body: groupId,
+    })
     res = await res.json()
 
     return res.message ? false : true

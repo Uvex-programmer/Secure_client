@@ -1,20 +1,41 @@
 import { Navigate } from 'react-router-dom'
 import { useAuth } from '../../../store/AuthContext'
 import { useState, useEffect } from 'react'
-
+import { useQuery } from '@apollo/client'
+import { useParams } from 'react-router'
+import { GET_GROUP_ACCESS } from '../../../api/queries/getGroupsAccess'
 const ProtectedRoute = ({ children }) => {
+  const { id } = useParams()
   const auth = useAuth()
   const [loading, setLoading] = useState(true)
   const [authenticated, setAuthenticated] = useState(false)
 
+  const { data, loader } = useQuery(GET_GROUP_ACCESS, {
+    variables: {
+      groupId: id,
+    },
+  })
+
   useEffect(() => {
-    const authenticate = async () => {
-      const authenticated = await auth.authenticate()
-      setAuthenticated(authenticated)
-      setLoading(false)
+    setLoading(true)
+    if (!data) return
+    console.log('is private: ', data.getGroupsAccess.isPrivate)
+
+    if (data.getGroupsAccess.isPrivate) {
+      const authenticate = async () => {
+        const authenticated = await auth.authenticate(id)
+        console.log('authenticated ', authenticated)
+        setAuthenticated(authenticated)
+
+        setLoading(false)
+      }
+      authenticate()
+      return
     }
-    authenticate()
-  }, [])
+
+    setAuthenticated(true)
+    setLoading(false)
+  }, [data])
 
   if (loading) {
     return <h1>KOLLAR SÅ DU INTE ÄR EN HACKER</h1>

@@ -27,7 +27,6 @@ const GroupPage = () => {
     },
   })
 
-  
   const handleMessage = () => {
     console.log(message)
     addPost({
@@ -55,30 +54,36 @@ const GroupPage = () => {
           {!loading &&
             data?.findSingleGroupById.name &&
             data.findSingleGroupById.groupPosts.map((pst, idx) => {
-              return <GroupPostCard key={idx} post={pst} groupId={id} admins={data.findSingleGroupById.admins} mods={data.findSingleGroupById.moderators}/>
+              return (
+                <GroupPostCard
+                  key={idx}
+                  post={pst}
+                  groupId={id}
+                  admins={data.findSingleGroupById.admins}
+                  mods={data.findSingleGroupById.moderators}
+                />
+              )
             })}
           <CardContent>
-          <h4>Create a new post</h4>
-          <Box sx={{ marginTop: '1rem' }}>
-            <TextField
-              id='outlined-multiline-static'
-              label='Enter text'
-              multiline
-              sx={{ width: '400px' }}
-              rows={4}
-              onChange={(e) => setmessage(e.target.value)}
-              value={message}
-            />
-            <Button onClick={handleMessage} sx={{ top: 90, left: 10 }}>
-              Submit
-            </Button>
+            <h4>Create a new post</h4>
+            <Box sx={{ marginTop: '1rem' }}>
+              <TextField
+                id='outlined-multiline-static'
+                label='Enter text'
+                multiline
+                sx={{ width: '400px' }}
+                rows={4}
+                onChange={(e) => setmessage(e.target.value)}
+                value={message}
+              />
+              <Button onClick={handleMessage} sx={{ top: 90, left: 10 }}>
+                Submit
+              </Button>
             </Box>
           </CardContent>
         </Grid>
         <Grid item md={4} sx={{ backgroundColor: 'gray' }}>
-            {!loading &&
-          <MemberBar group={data.findSingleGroupById}/>
-            }
+          {!loading && <MemberBar group={data.findSingleGroupById} />}
         </Grid>
       </Grid>
     </Container>

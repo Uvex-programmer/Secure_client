@@ -27,6 +27,7 @@ const GroupPage = () => {
     },
   })
 
+  
   const handleMessage = () => {
     console.log(message)
     addPost({
@@ -54,7 +55,7 @@ const GroupPage = () => {
           {!loading &&
             data?.findSingleGroupById.name &&
             data.findSingleGroupById.groupPosts.map((pst, idx) => {
-              return <GroupPostCard key={idx} post={pst} groupId={id} />
+              return <GroupPostCard key={idx} post={pst} groupId={id} admins={data.findSingleGroupById.admins} mods={data.findSingleGroupById.moderators}/>
             })}
           <CardContent>
           <h4>Create a new post</h4>

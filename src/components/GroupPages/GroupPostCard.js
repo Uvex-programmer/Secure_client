@@ -1,23 +1,43 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import React, { useState } from 'react';
+import {
+  Box,
+  Card,
+  CardActions,
+  CardContent,
+  Button,
+  Typography,
+  TextField
+} from '@mui/material/';
 import { useMutation } from '@apollo/client'
 import { REMOVE_POST_FROM_GROUP } from '../../api/mutation/removePostFromGroup'
 import { useAuth } from '../../store/AuthContext'
+import { ADD_POST } from '../../api/mutation/addPost'
 
 const GroupPostCard = ({ post, groupId, admins, mods }) => {
-  const [removePost, { error }] = useMutation(REMOVE_POST_FROM_GROUP);
+  const [removePost] = useMutation(REMOVE_POST_FROM_GROUP);
+  const [addPost] = useMutation(ADD_POST);
   const auth = useAuth();
   const username = auth.user.username;
+  const [message, setmessage] = useState(post.text)
+  const [editPost, setEditPost] = useState('')
+
   const correctUser = () => {
     if (post.username === username) return true;
     const admin = admins.filter((user) => user.username === username)
     const moderators = mods.filter((user) => user.username === username)
     return (moderators.length > 0 || admin.length > 0) ? true : false;
+  }
+
+  const handleMessage = () => {
+    console.log(message)
+    /*addPost({
+      variables: {
+        text: message,
+        username: auth.user.username,
+        groupId: groupId,
+      },
+    })*/
+    setEditPost(false);
   }
 
   const deletePost = () => {
@@ -40,15 +60,31 @@ const GroupPostCard = ({ post, groupId, admins, mods }) => {
         <Typography sx={{ mb: 1.5 }} color="text.secondary" variant="body2">
           Author: {post.username}
         </Typography>
-        <Typography variant="body2">
-          {post.text}
-        </Typography>
+        {!editPost &&
+          <Typography variant="body2">
+            {post.text}
+          </Typography>}
+        {editPost &&
+          <Box sx={{ marginTop: '1rem' }}>
+            <TextField
+              id='outlined-multiline-static'
+              label='Edit post'
+              multiline
+              sx={{ width: '400px' }}
+              rows={4}
+              onChange={(e) => setmessage(e.target.value)}
+              value={message}
+            />
+            <Button onClick={handleMessage} sx={{ top: 90, left: 10 }}>
+              Submit
+            </Button>
+          </Box>}
       </CardContent>
 
       {correctUser() && <>
         <CardActions>
           <Button size="small" onClick={() => {
-            console.log(post.id, groupId);
+            setEditPost(true);
           }}>edit post</Button>
         </CardActions>
         <CardActions>

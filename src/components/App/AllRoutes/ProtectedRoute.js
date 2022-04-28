@@ -19,12 +19,10 @@ const ProtectedRoute = ({ children }) => {
   useEffect(() => {
     setLoading(true)
     if (!data) return
-    console.log('is private: ', data.getGroupsAccess.isPrivate)
 
     if (data.getGroupsAccess.isPrivate) {
       const authenticate = async () => {
         const authenticated = await auth.authenticate(id)
-        console.log('authenticated ', authenticated)
         setAuthenticated(authenticated)
 
         setLoading(false)

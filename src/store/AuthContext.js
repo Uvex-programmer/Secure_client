@@ -25,8 +25,9 @@ export const AuthContextProvider = (props) => {
         password: password,
       }),
     })
-    const loggedInUser = await response.json()
-    console.log(loggedInUser)
+    let loggedInUser = await response.json()
+    loggedInUser = loggedInUser.message ? null : loggedInUser
+
     setUser(loggedInUser)
   }
 
@@ -53,6 +54,7 @@ export const AuthContextProvider = (props) => {
       method: 'POST',
     })
     setUser(null)
+    window.location.href = '/'
   }
 
   const setUserHandler = (data) => {
@@ -61,7 +63,6 @@ export const AuthContextProvider = (props) => {
   }
 
   const authenticate = async (groupId) => {
-    console.log(groupId)
     let res = await fetch('/api/auth/authenticate', {
       method: 'POST',
       headers: { 'Content-type': 'application/json' },

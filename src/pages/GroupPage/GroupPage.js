@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Grid,
   Typography,
@@ -9,6 +9,7 @@ import {
   CardContent,
 } from '@mui/material'
 import { GET_SINGLE_GROUP_BY_ID } from '../../api/queries/getSingleGroupById'
+import { ADD_MEMBER } from '../../api/mutation/addMember'
 import { useQuery, useMutation } from '@apollo/client'
 import { useParams } from 'react-router'
 import { ADD_POST } from '../../api/mutation/addPost'
@@ -20,15 +21,37 @@ const GroupPage = () => {
   const { id } = useParams()
   const auth = useAuth()
   const [message, setmessage] = useState('')
+  const [userExists, setUserExists] = useState(true)
   const [addPost, { error }] = useMutation(ADD_POST)
+  const [addMember, { errorMember }] = useMutation(ADD_MEMBER)
+  const [loader, setloader] = useState(true)
   const { data, loading } = useQuery(GET_SINGLE_GROUP_BY_ID, {
     variables: {
       groupId: id,
     },
   })
 
+  useEffect(() => {
+    setloader(true)
+    const checkUser = async () => {
+      var user = await auth.authenticate(id)
+      user = user ? false : true
+      setUserExists(user)
+      setloader(false)
+    }
+    checkUser()
+  }, [id])
+
+  const joinGroup = () => {
+    if (!auth.user) return
+    addMember({
+      variables: {
+        groupId: id,
+      },
+    })
+  }
+
   const handleMessage = () => {
-    console.log(message)
     addPost({
       variables: {
         text: message,
@@ -48,6 +71,9 @@ const GroupPage = () => {
       >
         {!loading && data?.findSingleGroupById.name}
       </Typography>
+      {!loader && userExists && auth.user && (
+        <Button onClick={joinGroup}>Join Group</Button>
+      )}
       <Grid container>
         <Grid item md={8}>
           {loading && <h1>loading</h1>}

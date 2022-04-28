@@ -35,12 +35,6 @@ export default function SignUp() {
   const handleSubmit = async (event) => {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-      username: data.get('username'),
-    })
-
     const response = await fetch('/api/auth/signup', {
       method: 'POST',
       headers: {
@@ -53,7 +47,6 @@ export default function SignUp() {
       }),
     })
     const res = await response.json()
-    console.log(res)
   }
 
   return (

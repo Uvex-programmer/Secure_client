@@ -29,7 +29,6 @@ const GroupPostCard = ({ post, groupId, admins, mods }) => {
   }
 
   const handleMessage = () => {
-    console.log(message)
     /*addPost({
       variables: {
         text: message,

@@ -40,6 +40,7 @@ export default function SignIn() {
     const data = new FormData(event.currentTarget)
 
     auth.loginUser(data.get('username'), data.get('password'))
+    window.location.reload();
   }
 
   return (

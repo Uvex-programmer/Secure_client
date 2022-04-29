@@ -11,11 +11,11 @@ import {
 import { useMutation } from '@apollo/client'
 import { REMOVE_POST_FROM_GROUP } from '../../api/mutation/removePostFromGroup'
 import { useAuth } from '../../store/AuthContext'
-import { ADD_POST } from '../../api/mutation/addPost'
+import { EDIT_POST } from '../../api/mutation/editPost'
 
 const GroupPostCard = ({ post, groupId, admins, mods }) => {
   const [removePost] = useMutation(REMOVE_POST_FROM_GROUP)
-  const [addPost] = useMutation(ADD_POST)
+  const [editPostInGroup] = useMutation(EDIT_POST)
   const auth = useAuth()
   const username = auth.user?.username
   const [message, setmessage] = useState(post.text)
@@ -29,14 +29,15 @@ const GroupPostCard = ({ post, groupId, admins, mods }) => {
   }
 
   const handleMessage = () => {
-    /*addPost({
+    editPostInGroup({
       variables: {
         text: message,
-        username: auth.user.username,
+        postId: post.id,
         groupId: groupId,
       },
-    })*/
+    })
     setEditPost(false)
+    window.location.reload();
   }
 
   const deletePost = () => {
@@ -46,6 +47,7 @@ const GroupPostCard = ({ post, groupId, admins, mods }) => {
         postId: post.id,
       },
     })
+    window.location.reload();
   }
 
   const card = (

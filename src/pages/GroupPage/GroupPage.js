@@ -49,6 +49,7 @@ const GroupPage = () => {
         groupId: id,
       },
     })
+    window.location.reload();
   }
 
   const handleMessage = () => {
@@ -59,6 +60,7 @@ const GroupPage = () => {
         groupId: id,
       },
     })
+    window.location.reload();
   }
 
   return (

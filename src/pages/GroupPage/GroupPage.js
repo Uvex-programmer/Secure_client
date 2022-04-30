@@ -96,23 +96,25 @@ const GroupPage = () => {
                 />
               )
             })}
-          <CardContent>
-            <h4>Create a new post</h4>
-            <Box sx={{ marginTop: '1rem' }}>
-              <TextField
-                id='outlined-multiline-static'
-                label='Enter text'
-                multiline
-                sx={{ width: '400px' }}
-                rows={4}
-                onChange={(e) => setmessage(e.target.value)}
-                value={message}
-              />
-              <Button onClick={handleMessage} sx={{ top: 90, left: 10 }}>
-                Submit
-              </Button>
-            </Box>
-          </CardContent>
+          {userExists && !loading && auth.user && (
+            <CardContent>
+              <h4>Create a new post</h4>
+              <Box sx={{ marginTop: '1rem' }}>
+                <TextField
+                  id='outlined-multiline-static'
+                  label='Enter text'
+                  multiline
+                  sx={{ width: '400px' }}
+                  rows={4}
+                  onChange={(e) => setmessage(e.target.value)}
+                  value={message}
+                />
+                <Button onClick={handleMessage} sx={{ top: 90, left: 10 }}>
+                  Submit
+                </Button>
+              </Box>
+            </CardContent>
+          )}
         </Grid>
         <Grid item md={4} sx={{ backgroundColor: 'gray' }}>
           {!loading && <MemberBar group={data.findSingleGroupById} />}

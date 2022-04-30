@@ -104,7 +104,6 @@ const GroupPage = () => {
                   id='outlined-multiline-static'
                   label='Enter text'
                   multiline
-                  sx={{ width: '400px' }}
                   rows={4}
                   onChange={(e) => setmessage(e.target.value)}
                   value={message}
@@ -117,27 +116,31 @@ const GroupPage = () => {
           )}
         </Grid>
         <Grid item md={4} sx={{ backgroundColor: 'gray' }}>
-          {!loading && <MemberBar group={data.findSingleGroupById} />}
-          {role === 'Moderator' ||
-            (role === 'Admin' && (
-              <Box sx={{ padding: 2 }}>
-                <TextField
-                  sx={{ backgroundColor: 'white', marginTop: 15 }}
-                  margin='normal'
-                  required
-                  fullWidth
-                  id='username'
-                  label='username'
-                  name='username'
-                  autoComplete='username'
-                  autoFocus
-                  onChange={(e) => setUsername(e.target.value)}
-                />
-                <Button color='inherit' onClick={joinGroup}>
-                  Add member
-                </Button>
-              </Box>
-            ))}
+          {!loading && (
+            <MemberBar group={data.findSingleGroupById} role={role} />
+          )}
+          <>
+            {role === 'Moderator' ||
+              (role === 'Admin' && (
+                <Box sx={{ padding: 2 }}>
+                  <TextField
+                    sx={{ backgroundColor: 'white', marginTop: 15 }}
+                    margin='normal'
+                    required
+                    fullWidth
+                    id='username'
+                    label='username'
+                    name='username'
+                    autoComplete='username'
+                    autoFocus
+                    onChange={(e) => setUsername(e.target.value)}
+                  />
+                  <Button color='inherit' onClick={joinGroup}>
+                    Add member
+                  </Button>
+                </Box>
+              ))}
+          </>
         </Grid>
       </Grid>
     </Container>

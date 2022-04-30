@@ -2,8 +2,7 @@ import React from 'react'
 import { Grid, Typography, Container } from '@mui/material'
 import MemberBox from './MemberBox'
 
-const MemberBar = ({ group }) => {
-
+const MemberBar = ({ group, role }) => {
   return (
     <Container>
       <Typography
@@ -17,7 +16,15 @@ const MemberBar = ({ group }) => {
       <Grid container>
         {group?.name &&
           group.admins.map((mem, idx) => {
-            return <MemberBox key={idx} member={mem} />
+            return (
+              <MemberBox
+                key={idx}
+                member={mem}
+                role={role}
+                type={'Admin'}
+                groupId={group.id}
+              />
+            )
           })}
       </Grid>
       <Typography
@@ -29,10 +36,17 @@ const MemberBar = ({ group }) => {
         Moderators
       </Typography>
       <Grid container>
-
         {group?.name &&
           group.moderators.map((mem, idx) => {
-            return <MemberBox key={idx} member={mem} />
+            return (
+              <MemberBox
+                key={idx}
+                member={mem}
+                role={role}
+                type={'Moderator'}
+                groupId={group.id}
+              />
+            )
           })}
       </Grid>
       <Typography
@@ -46,10 +60,18 @@ const MemberBar = ({ group }) => {
       <Grid container>
         {group?.name &&
           group.members.map((mem, idx) => {
-            return <MemberBox key={idx} member={mem} />
+            return (
+              <MemberBox
+                key={idx}
+                member={mem}
+                role={role}
+                type={'Member'}
+                groupId={group.id}
+              />
+            )
           })}
       </Grid>
     </Container>
-  );
+  )
 }
-export default MemberBar;
+export default MemberBar

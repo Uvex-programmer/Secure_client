@@ -37,7 +37,7 @@ const GroupPostCard = ({ post, groupId, admins, mods }) => {
       },
     })
     setEditPost(false)
-    window.location.reload();
+    window.location.reload()
   }
 
   const deletePost = () => {
@@ -47,7 +47,7 @@ const GroupPostCard = ({ post, groupId, admins, mods }) => {
         postId: post.id,
       },
     })
-    window.location.reload();
+    window.location.reload()
   }
 
   const card = (

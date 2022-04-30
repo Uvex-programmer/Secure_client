@@ -68,9 +68,7 @@ export const AuthContextProvider = (props) => {
       headers: { 'Content-type': 'application/json' },
       body: groupId,
     })
-    res = await res.json()
-
-    return res.message ? false : true
+    return res.json()
   }
 
   const whoAmI = async () => {

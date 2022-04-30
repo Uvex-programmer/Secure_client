@@ -21,6 +21,8 @@ const GroupPage = () => {
   const { id } = useParams()
   const auth = useAuth()
   const [message, setmessage] = useState('')
+  const [username, setUsername] = useState('')
+  const [role, setRole] = useState('')
   const [userExists, setUserExists] = useState(true)
   const [addPost, { error }] = useMutation(ADD_POST)
   const [addMember, { errorMember }] = useMutation(ADD_MEMBER)
@@ -34,9 +36,10 @@ const GroupPage = () => {
   useEffect(() => {
     setloader(true)
     const checkUser = async () => {
-      var user = await auth.authenticate(id)
-      user = user ? false : true
-      setUserExists(user)
+      var { authenticated, role, error } = await auth.authenticate(id)
+      if (error) return
+      setUserExists(authenticated)
+      setRole(role)
       setloader(false)
     }
     checkUser()
@@ -47,9 +50,10 @@ const GroupPage = () => {
     addMember({
       variables: {
         groupId: id,
+        username: username,
       },
     })
-    window.location.reload();
+    window.location.reload()
   }
 
   const handleMessage = () => {
@@ -60,7 +64,7 @@ const GroupPage = () => {
         groupId: id,
       },
     })
-    window.location.reload();
+    window.location.reload()
   }
 
   return (
@@ -73,7 +77,7 @@ const GroupPage = () => {
       >
         {!loading && data?.findSingleGroupById.name}
       </Typography>
-      {!loader && userExists && auth.user && (
+      {!loader && !userExists && auth.user && (
         <Button onClick={joinGroup}>Join Group</Button>
       )}
       <Grid container>
@@ -112,6 +116,26 @@ const GroupPage = () => {
         </Grid>
         <Grid item md={4} sx={{ backgroundColor: 'gray' }}>
           {!loading && <MemberBar group={data.findSingleGroupById} />}
+          {role === 'Moderator' ||
+            (role === 'Admin' && (
+              <Box sx={{ padding: 2 }}>
+                <TextField
+                  sx={{ backgroundColor: 'white', marginTop: 15 }}
+                  margin='normal'
+                  required
+                  fullWidth
+                  id='username'
+                  label='username'
+                  name='username'
+                  autoComplete='username'
+                  autoFocus
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+                <Button color='inherit' onClick={joinGroup}>
+                  Add member
+                </Button>
+              </Box>
+            ))}
         </Grid>
       </Grid>
     </Container>

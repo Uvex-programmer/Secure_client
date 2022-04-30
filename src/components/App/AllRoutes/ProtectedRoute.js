@@ -22,9 +22,8 @@ const ProtectedRoute = ({ children }) => {
 
     if (data.getGroupsAccess.isPrivate) {
       const authenticate = async () => {
-        const authenticated = await auth.authenticate(id)
+        const { authenticated, error } = await auth.authenticate(id)
         setAuthenticated(authenticated)
-
         setLoading(false)
       }
       authenticate()

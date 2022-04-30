@@ -5,7 +5,6 @@ const HomePage = () => {
     <div>
       Att göra:<br></br>
       Skapa huvudadmin<br></br>
-      Lösa access för poster<br></br>
     </div>
   )
 }

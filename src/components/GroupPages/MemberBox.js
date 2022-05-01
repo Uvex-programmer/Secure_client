@@ -3,10 +3,12 @@ import { Grid, Paper, Typography, ButtonGroup, Button } from '@mui/material'
 import { useMutation } from '@apollo/client'
 import { CHANGE_MEMBER_STATUS } from '../../api/mutation/changeMemberStatus'
 import { REMOVE_MEMBER } from '../../api/mutation/removeMember'
+import { useAuth } from '../../store/AuthContext'
 
 const MemberBox = ({ member, role, type, groupId }) => {
   const [changeStatus, { errorMember }] = useMutation(CHANGE_MEMBER_STATUS)
   const [removeMember, { error }] = useMutation(REMOVE_MEMBER)
+  const auth = useAuth()
 
   const changeMemberStatus = (role) => {
     changeStatus({
@@ -29,8 +31,26 @@ const MemberBox = ({ member, role, type, groupId }) => {
     window.location.reload()
   }
 
+  const showEditButtons = () => {
+    if (checkIfSuperAdmin()) return true
+    return role !== 'Member' && type !== 'Admin' ? true : false
+  }
+
+  const changeMemberStatusButtons = () => {
+    return checkIfAdmin() || checkIfSuperAdmin()
+  }
+
+  const checkIfSuperAdmin = () => {
+    if (!auth.user) return
+    var roles = auth.user?.roles
+    if (roles.length < 1) return false
+    return roles[0].name === 'ROLE_ADMIN' ? true : false
+  }
+
   const checkIfAdminOrMod = () => {
-    return role === 'Admin' || role === 'Moderator' ? true : false
+    return role === 'Admin' || role === 'Moderator' || checkIfSuperAdmin()
+      ? true
+      : false
   }
 
   const checkIfAdmin = () => {
@@ -45,13 +65,13 @@ const MemberBox = ({ member, role, type, groupId }) => {
         </Grid>
 
         <Grid item sx={{ margin: 'auto' }}>
-          {role !== 'Member' && type !== 'Admin' && (
+          {showEditButtons() && (
             <ButtonGroup
               variant='contained'
               aria-label='outlined primary button group'
               size='small'
             >
-              {checkIfAdmin() && (
+              {changeMemberStatusButtons() && (
                 <>
                   <Button onClick={() => changeMemberStatus('Moderator')}>
                     Mod

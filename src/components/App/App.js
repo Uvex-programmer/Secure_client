@@ -32,6 +32,7 @@ function App() {
         isPrivate: checked,
       },
     })
+    window.location.reload()
   }
 
   return (

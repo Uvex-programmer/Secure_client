@@ -1,14 +1,18 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
-import { Grid, Typography, Container } from '@mui/material'
+import { Grid, Typography, Container, Button } from '@mui/material'
 import { GET_ALL_GROUPS } from '../../api/queries/getAllGroups'
 import GroupBox from '../GroupBar/GroupBox'
 
 const GroupBar = () => {
   const { data, loading } = useQuery(GET_ALL_GROUPS, { variables: {} })
 
+
   return (
     <Container>
+      <Button variant="contained" mt={10} onClick={() => {
+          
+      }}>Create new group</Button>
       <Typography
         variant='h5'
         align='center'
@@ -17,6 +21,8 @@ const GroupBar = () => {
       >
         Groups
       </Typography>
+
+
       <Grid container>
         {loading && <h1>loading</h1>}
         {!loading &&

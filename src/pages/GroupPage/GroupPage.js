@@ -56,6 +56,10 @@ const GroupPage = () => {
     window.location.reload()
   }
 
+  const checkIfCanAddMember = () => {
+    return role === 'Admin' || role === 'SuperAdmin' || role === 'Moderator'
+  }
+
   const handleMessage = () => {
     addPost({
       variables: {
@@ -120,26 +124,25 @@ const GroupPage = () => {
             <MemberBar group={data.findSingleGroupById} role={role} />
           )}
           <>
-            {role === 'Moderator' ||
-              (role === 'Admin' && (
-                <Box sx={{ padding: 2 }}>
-                  <TextField
-                    sx={{ backgroundColor: 'white', marginTop: 15 }}
-                    margin='normal'
-                    required
-                    fullWidth
-                    id='username'
-                    label='username'
-                    name='username'
-                    autoComplete='username'
-                    autoFocus
-                    onChange={(e) => setUsername(e.target.value)}
-                  />
-                  <Button color='inherit' onClick={joinGroup}>
-                    Add member
-                  </Button>
-                </Box>
-              ))}
+            {checkIfCanAddMember() && (
+              <Box sx={{ padding: 2 }}>
+                <TextField
+                  sx={{ backgroundColor: 'white', marginTop: 15 }}
+                  margin='normal'
+                  required
+                  fullWidth
+                  id='username'
+                  label='username'
+                  name='username'
+                  autoComplete='username'
+                  autoFocus
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+                <Button color='inherit' onClick={joinGroup}>
+                  Add member
+                </Button>
+              </Box>
+            )}
           </>
         </Grid>
       </Grid>
